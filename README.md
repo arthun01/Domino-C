@@ -20,7 +20,7 @@ Um jogo de dominó interativo executado via terminal, desenvolvido em linguagem 
 
 1. Clone o repositório para a sua máquina:
 ```bash
-git clone [https://github.com/arthun01/Domino-C.git](https://github.com/arthun01/Domino-C.git)
+git clone https://github.com/arthun01/Domino-C.git
 cd Domino-C
 
 2. Compile o código usando o gcc:
