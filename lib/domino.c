@@ -1,45 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-typedef struct Pedra_Domino{
-    int esquerda;
-    int direita;
-    struct Pedra_Domino* proximo;
-} PedraDomino;
-
-typedef struct Jogo_DominoLista {
-    PedraDomino* inicio;
-    PedraDomino* fim;
-} JogoDominoLista;
-
-// * Protótipos de funções * //
-JogoDominoLista* criarLista(void);
-int listaVazia(JogoDominoLista* lista);
-
-void listaInsereInicio(JogoDominoLista* lista, int esquerda, int direita);
-void listaInsereFim(JogoDominoLista* lista, int esquerda, int direita);
-
-void listaRemoveInicio(JogoDominoLista* lista);
-void listaRemoveFim(JogoDominoLista* lista);
-
-void listaImprime(JogoDominoLista* lista);
-PedraDomino* embaralhaBaralho(PedraDomino* baralho);
-
-PedraDomino* criarBaralho(void);
-
-
-
-int main(void){
-    // Criar o array de peças de dominó
-    PedraDomino* baralho = criarBaralho();
-
-    for(int i = 0; i < 28; i++){
-        printf("[%d][%d]\n", baralho[i].esquerda, baralho[i].direita);
-    }
-
-    return 0;
-}
+#include "domino.h"
 
 // ** Funções relacionados a Lista Encadeada ** //
 
@@ -230,3 +189,16 @@ PedraDomino* criarBaralho(void){
     return baralho;
 }
 
+// // jogador funções
+
+// Jogador* criarJogador(PedraDomino* baralho){
+//     int k = 0;
+//     for(int i = 0; i < 4; i++){
+//         strcpy(jogadores[i].nome, "xxxx");
+//         for(int j = 0; j < 7; j++){
+//             jogadores[i].mao[j] = baralho[k];
+//             jogadores[i].mao[j].proximo = NULL;
+//             k++;
+//         }
+//     }
+// }
