@@ -186,6 +186,21 @@ void listaImprime(JogoDominoLista* lista){
     printf("\n");
 }
 
+// Nome: embaralhaBaralhp
+// Descrição: Embaralha o baralho a ser jogado
+// Retorno: Retorna o array do baralho já embaralhado
+PedraDomino* embaralhaBaralho(PedraDomino* baralho){
+    for(int i = 27; i > 0; i--){
+        int j = rand() % (i + 1);
+
+        PedraDomino temp = baralho[i];
+        baralho[i] = baralho[j];
+        baralho[j] = temp;
+    }
+
+    return baralho;
+}
+
 // Nome: criarBaralho
 // Descrição: Cria o baralho a ser jogado
 // Retorno: Retorna um array de 28 espaços que guarda o baralho inteiro
@@ -213,14 +228,3 @@ PedraDomino* criarBaralho(void){
     return baralho;
 }
 
-PedraDomino* embaralhaBaralho(PedraDomino* baralho){
-    for(int i = 27; i > 0; i--){
-        int j = rand() % (i + 1);
-
-        PedraDomino temp = baralho[i];
-        baralho[i] = baralho[j];
-        baralho[j] = temp;
-    }
-
-    return baralho;
-}
