@@ -235,3 +235,35 @@ void printarJogadores(Jogador* jogadores){
         printf("\n");
     }
 }
+
+void viraPedra(PedraDomino* pedra){
+    if(pedra == NULL) return;
+
+    int temp = pedra->esquerda;
+    pedra->esquerda = pedra->direita;
+    pedra->direita = temp;
+}
+
+int validarJogada(PedraDomino* pedra, JogoDominoLista* mesa, int escolha){
+    if(mesa->inicio == NULL){
+        return 1;
+    }
+
+    if(escolha == 1){
+        if(pedra->direita == mesa->inicio->esquerda){
+            return 1;
+        }else if(pedra->esquerda == mesa->inicio->esquerda){
+            viraPedra(pedra);
+            return 1;
+        }
+    }else if(escolha == 2){
+        if(pedra->esquerda == mesa->fim->direita){
+            return 1;
+        }else if(pedra->direita == mesa->fim->direita){
+            viraPedra(pedra);
+            return 1;
+        }
+    }
+
+    return 0;
+}

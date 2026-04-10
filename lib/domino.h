@@ -41,6 +41,8 @@ void listaImprime(JogoDominoLista* lista);
 PedraDomino* embaralhaBaralho(PedraDomino* baralho);
 
 PedraDomino* criarBaralho(void);
+void viraPedra(PedraDomino* pedra);
+int validarJogada(PedraDomino* pedra, JogoDominoLista* mesa, int escolha);
 
 Jogador* iniciarJogadores(PedraDomino* baralho);
 void printarJogadores(Jogador* jogadores);
