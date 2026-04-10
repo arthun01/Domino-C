@@ -41,6 +41,7 @@ PedraDomino* embaralhaBaralho(PedraDomino* baralho);
 
 PedraDomino* criarBaralho(void);
 
-Jogador* criarJogador(PedraDomino* baralho, int n);
+Jogador* iniciarJogadores(PedraDomino* baralho);
+void printarJogadores(Jogador* jogadores);
 
 #endif

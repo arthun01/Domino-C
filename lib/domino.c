@@ -189,16 +189,40 @@ PedraDomino* criarBaralho(void){
     return baralho;
 }
 
-// // jogador funções
+Jogador* iniciarJogadores(PedraDomino* baralho){
+    // Cria o array de jogadores
+    Jogador* jogadores = (Jogador*)malloc(4 * sizeof(Jogador));
+    if(jogadores == NULL){
+        printf("Erro ao alocar\n");
+        return 0;
+    }
 
-// Jogador* criarJogador(PedraDomino* baralho){
-//     int k = 0;
-//     for(int i = 0; i < 4; i++){
-//         strcpy(jogadores[i].nome, "xxxx");
-//         for(int j = 0; j < 7; j++){
-//             jogadores[i].mao[j] = baralho[k];
-//             jogadores[i].mao[j].proximo = NULL;
-//             k++;
-//         }
-//     }
-// }
+    // preenche as informações de cada um
+    int k = 0;
+    for(int i = 0; i < 4; i++){
+        char nome_prov[20];
+        printf("Digite seu nome Jogador %d: ", i + 1);
+        scanf("%19[^\n]%*c", nome_prov);
+
+
+        strcpy(jogadores[i].nome, nome_prov);
+        for(int j = 0; j < 7; j++){
+            jogadores[i].mao[j] = baralho[k];
+            jogadores[i].mao[j].proximo = NULL;
+            k++;
+        }
+    }
+
+    return jogadores;
+}
+
+void printarJogadores(Jogador* jogadores){
+    for(int i = 0; i < 4; i++){
+        printf("Jogador %d: %s\n", i + 1, jogadores[i].nome);
+        printf("Mão: ");
+        for(int j = 0; j < 7; j++){
+            printf("[%d|%d] ", jogadores[i].mao[j].esquerda, jogadores[i].mao[j].direita);
+        }
+        printf("\n\n");
+    }
+}
