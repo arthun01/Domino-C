@@ -17,11 +17,6 @@ void menu(int vez, JogoDominoLista* mesa, Jogador* jogadores){
     printf("\n- - - JOGADOR %d:\n", vez + 1);
     printarJogador(jogadores, vez);
 
-    if(jogadores[vez].num_pecas == 0){
-        printf("Jogador %d - %s VENCE!!\n", vez + 1, jogadores[vez].nome);
-        exit(1);
-    }
-
     // jogador escolhe qual peça irá jogar
     int indice;
     do{
@@ -64,6 +59,11 @@ void menu(int vez, JogoDominoLista* mesa, Jogador* jogadores){
         }else{
             printf("Jogada Inválida\n");
         }
+    }
+
+    if(jogadores[vez].num_pecas == 0){
+        printf("Jogador %d - %s VENCE!!\n", vez + 1, jogadores[vez].nome);
+        exit(1);
     }
 }
 

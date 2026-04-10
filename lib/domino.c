@@ -219,7 +219,7 @@ Jogador* iniciarJogadores(PedraDomino* baralho){
 
 void printarJogador(Jogador* jogadores, int n){
     for(int i = 0; i < 7; i++){
-        printf("[%d|%d] ", jogadores[n].mao[i].esquerda, jogadores[n].mao[i].direita);
+        printf("(%d) -> [%d|%d] \n", i, jogadores[n].mao[i].esquerda, jogadores[n].mao[i].direita);
     }
     printf("\n");
 }
