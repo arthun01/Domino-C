@@ -190,6 +190,8 @@ void listaImprime(JogoDominoLista* lista){
 // Descrição: Embaralha o baralho a ser jogado
 // Retorno: Retorna o array do baralho já embaralhado
 PedraDomino* embaralhaBaralho(PedraDomino* baralho){
+    srand(time(NULL));
+
     for(int i = 27; i > 0; i--){
         int j = rand() % (i + 1);
 
