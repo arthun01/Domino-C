@@ -2,7 +2,7 @@
 
 Um jogo de dominó interativo executado via terminal, desenvolvido em linguagem C. Este projeto utiliza o conceito de **Listas Encadeadas** para simular a mesa do jogo, permitindo a inserção de pedras nas extremidades e a gestão completa das rodadas.
 
-## ✨ Funcionalidades
+## 🤖​ Funcionalidades
 - **Multiplayer Local**: Suporte para 4 jogadores no mesmo terminal.
 - **Estruturas de Dados**: Uso de Listas Encadeadas dinâmicas para gerenciar as peças que estão atualmente jogadas na mesa.
 - **Validação de Jogadas**: O sistema impede movimentos inválidos e inverte as peças automaticamente quando necessário para encaixar na mesa (ex: converte `[2|4]` para `[4|2]` se a extremidade exigir).
