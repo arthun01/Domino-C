@@ -211,18 +211,27 @@ Jogador* iniciarJogadores(PedraDomino* baralho){
             jogadores[i].mao[j].proximo = NULL;
             k++;
         }
+        jogadores[i].num_pecas = 7;
     }
 
     return jogadores;
 }
 
+void printarJogador(Jogador* jogadores, int n){
+    for(int i = 0; i < 7; i++){
+        printf("[%d|%d] ", jogadores[n].mao[i].esquerda, jogadores[n].mao[i].direita);
+    }
+    printf("\n");
+}
+
 void printarJogadores(Jogador* jogadores){
     for(int i = 0; i < 4; i++){
         printf("Jogador %d: %s\n", i + 1, jogadores[i].nome);
-        printf("Mão: ");
-        for(int j = 0; j < 7; j++){
-            printf("[%d|%d] ", jogadores[i].mao[j].esquerda, jogadores[i].mao[j].direita);
-        }
-        printf("\n\n");
+        printf("Peças na mão: %d\n", jogadores[i].num_pecas);
+        // printf("Mão: ");
+        // for(int j = 0; j < 7; j++){
+        //     printf("[%d|%d] ", jogadores[i].mao[j].esquerda, jogadores[i].mao[j].direita);
+        // }
+        printf("\n");
     }
 }

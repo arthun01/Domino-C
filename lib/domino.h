@@ -24,6 +24,7 @@ typedef struct Jogo_DominoLista {
 typedef struct jogador{
     PedraDomino mao[7];
     char nome[20];
+    int num_pecas;
 } Jogador;
 
 // * Protótipos de funções * //
@@ -43,5 +44,8 @@ PedraDomino* criarBaralho(void);
 
 Jogador* iniciarJogadores(PedraDomino* baralho);
 void printarJogadores(Jogador* jogadores);
+
+void printarJogador(Jogador* jogadores, int n);
+void menu(int vez, JogoDominoLista* mesa, Jogador* jogadores);
 
 #endif
