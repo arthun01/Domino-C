@@ -2,11 +2,14 @@
 Projeto destinado a construir um simples jogo de dominó em C
 
 ## Rodar o projeto
-1. Entrar no diretório
-`cd domino`
+1. Clone o repositório
+`git clone github.com/arthun01/Domino-C`
 
-2. Copilar
+2. Entre no diretório
+`cd Domino-C`
+
+3. Copile a main
 `gcc main.c -o main`
 
-3. Rodar
+4. Rode
 `./main`

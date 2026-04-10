@@ -131,6 +131,20 @@ void listaRemoveFim(JogoDominoLista* lista){
     printf("pedra removida: [%d|%d]\n", valor_esq, valor_dir);
 }
 
+// Nome: listaLibera
+// Descrição: Da um free na lista inteira liberando memória
+// Retorno: Sem retorno
+void listaLibera(JogoDominoLista* lista){
+    PedraDomino* pedra = lista->inicio;
+
+    while(pedra != NULL){
+        PedraDomino* temp = pedra;
+        pedra = pedra->proximo;
+        free(temp);
+    }
+    free(lista);
+}
+
 // Nome: listaImprime
 // Descrição: Imprime no terminal a "mesa"
 // Retorno: Sem retorno
@@ -144,6 +158,10 @@ void listaImprime(JogoDominoLista* lista){
     }
     printf("\n");
 }
+
+// ** -------------------------------------- ** //
+
+// ** Funções relacionadas a Baralho ** //
 
 // Nome: embaralhaBaralhp
 // Descrição: Embaralha o baralho a ser jogado
@@ -189,6 +207,13 @@ PedraDomino* criarBaralho(void){
     return baralho;
 }
 
+// ** -------------------------------------- ** //
+
+// ** Funções relacionadas a Jogadores ** //
+
+// Nome: iniciarJogadores
+// Descrição: Cria o array de jogadores, preenche e o retorna
+// Retorno: Retorna o array de jogadores
 Jogador* iniciarJogadores(PedraDomino* baralho){
     // Cria o array de jogadores
     Jogador* jogadores = (Jogador*)malloc(4 * sizeof(Jogador));
@@ -217,25 +242,30 @@ Jogador* iniciarJogadores(PedraDomino* baralho){
     return jogadores;
 }
 
+// Nome: printarJogador
+// Descrição: Printa na tela o jogador da vez e sua mão
+// Retorno: Sem retorno
 void printarJogador(Jogador* jogadores, int n){
     for(int i = 0; i < 7; i++){
-        printf("(%d) -> [%d|%d] \n", i, jogadores[n].mao[i].esquerda, jogadores[n].mao[i].direita);
+        printf("%2d) -> [%d|%d] \n", i, jogadores[n].mao[i].esquerda, jogadores[n].mao[i].direita);
     }
     printf("\n");
 }
 
+// Nome: printarJogadores
+// Descrição: Printa na tela todos os 4 jogadores
+// Retorno: Sem retorno
 void printarJogadores(Jogador* jogadores){
     for(int i = 0; i < 4; i++){
         printf("Jogador %d: %s\n", i + 1, jogadores[i].nome);
         printf("Peças na mão: %d\n", jogadores[i].num_pecas);
-        // printf("Mão: ");
-        // for(int j = 0; j < 7; j++){
-        //     printf("[%d|%d] ", jogadores[i].mao[j].esquerda, jogadores[i].mao[j].direita);
-        // }
         printf("\n");
     }
 }
 
+// Nome: viraPedra
+// Descrição: Faz um "swap" da pedra, se tiver [2|4] fica [4|2]
+// Retorno: Sem retorno
 void viraPedra(PedraDomino* pedra){
     if(pedra == NULL) return;
 
@@ -244,6 +274,9 @@ void viraPedra(PedraDomino* pedra){
     pedra->direita = temp;
 }
 
+// Nome: validarJogada
+// Descrição: Valida se a jogada é válida ou não
+// Retorno: 1 se tiver válida ou 0 se não tiver válida
 int validarJogada(PedraDomino* pedra, JogoDominoLista* mesa, int escolha){
     if(mesa->inicio == NULL){
         return 1;
@@ -266,4 +299,80 @@ int validarJogada(PedraDomino* pedra, JogoDominoLista* mesa, int escolha){
     }
 
     return 0;
+}
+
+// ** ---------------------------------- ** //
+
+// * MENU * //
+
+// Nome: menu
+// Descrição: É o menu que mostra as opções aos jogadores
+// Retorno: Sem retorno
+void menu(int vez, JogoDominoLista* mesa, Jogador* jogadores){
+
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+
+    printf("- - - MESA:\n");
+    if(listaVazia(mesa) == 1){
+        printf("- Sem peças na mesa -");
+    }else{
+        listaImprime(mesa);
+    }
+    printf("\n- - - JOGADOR %d (%s):\n", vez + 1, jogadores[vez].nome);
+    printf("-1) -> Não tenho pedra!!\n");
+    printarJogador(jogadores, vez);
+
+    // jogador escolhe qual peça irá jogar
+    int indice;
+    do{
+        printf("Digite o índice da peça que quer jogar: ");
+        scanf("%d", &indice);
+        if(indice < -1 || indice > 6){
+            printf("Valor inválido, tente outro!!\n");
+        }
+    }while(indice < -1 || indice > 6);
+
+    // jogador escolhe onde na mesa ele vai jogar 1 sendo na esquerda e 2 na direita
+    int lugar_mesa;
+    do{
+        if(indice == -1) break;
+        printf("[1 esq | 2 dir] Digite onde quer jogar na mesa: ");
+        scanf("%d", &lugar_mesa);
+        if(lugar_mesa != 1 && lugar_mesa != 2){
+            printf("Valor inválido, tente outro!!\n");
+        }
+    }while(lugar_mesa != 1 && lugar_mesa != 2);
+
+
+    // parte responável por de fato botar a peça na mesa
+    PedraDomino pedra = jogadores[vez].mao[indice];
+
+    if(lugar_mesa == 1){
+        if(validarJogada(&pedra, mesa, lugar_mesa) == 1){
+            listaInsereInicio(mesa, pedra.esquerda, pedra.direita);
+            jogadores[vez].mao[indice].direita = -1;
+            jogadores[vez].mao[indice].esquerda = -1;
+            jogadores[vez].num_pecas -= 1;
+        }else{
+            printf("Jogada Inválida\n");
+        }
+    }else if(lugar_mesa == 2){
+        if(validarJogada(&pedra, mesa, lugar_mesa) == 1){
+            listaInsereFim(mesa, pedra.esquerda, pedra.direita);
+            jogadores[vez].mao[indice].direita = -1;
+            jogadores[vez].mao[indice].esquerda = -1;
+            jogadores[vez].num_pecas -= 1;
+        }else{
+            printf("Jogada Inválida\n");
+        }
+    }
+
+    if(jogadores[vez].num_pecas == 0){
+        printf("Jogador %d - %s VENCE!!\n", vez + 1, jogadores[vez].nome);
+        exit(1);
+    }
 }
